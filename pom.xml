@@ -39,7 +39,7 @@
 		<!-- Easy Random for generating random values -->
 		<dependency>
 			<groupId>org.jeasy</groupId>
-			<artifactId>easy-random-randomizers</artifactId>
+			<artifactId>easy-random-core</artifactId>
 			<version>5.0.0</version>
 		</dependency>
 

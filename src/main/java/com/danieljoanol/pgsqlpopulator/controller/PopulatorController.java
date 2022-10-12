@@ -42,8 +42,8 @@ public class PopulatorController {
             @RequestBody(required = true) List<GenericType> fields
     ) {
 
-        if (recordsNumber <= 0) {
-            return ResponseEntity.badRequest().body("recordsNumber has to be bigger than 0");
+        if (recordsNumber <= 0 || recordsNumber > 100) {
+            return ResponseEntity.badRequest().body("recordsNumber has to be bigger than 0 and lesser than 100");
         }
 
         if (fields.isEmpty()) {
