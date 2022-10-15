@@ -1,5 +1,5 @@
 # pgsql-populator
-A simple PostgreSQL populator
+A simple PostgreSQL populator for practicing. As usual, suggestions, comments and corrections are welcome!
 
 ## Libraries
 
