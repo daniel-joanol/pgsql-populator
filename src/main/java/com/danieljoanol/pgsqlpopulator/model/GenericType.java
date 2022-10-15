@@ -21,8 +21,21 @@ public class GenericType {
     private FieldType type;
     private VarcharType varcharType;
     private Boolean unique;
+    private List<String> items = new ArrayList<>();
 
-    //Used only by types ENUM and SET
-    List<String> items = new ArrayList<>();
+    // Char
+    public GenericType(String name, FieldType type, Boolean unique) {
+        this.name = name;
+        this.type = type;
+        this.unique = unique;
+    }
+
+    // Varchar
+    public GenericType(String name, FieldType type, Boolean unique, VarcharType varcharType) {
+        this.name = name;
+        this.type = type;
+        this.unique = unique;
+        this.varcharType = varcharType;
+    }
     
 }

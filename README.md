@@ -25,4 +25,4 @@ I describe below the field types available and what parameters from GenericType 
 
 * String name;
 * Boolean unique;
-* enum FieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, COLOR, ID_NUMBER, PHONE_NUMBER)
+* enum FieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER)

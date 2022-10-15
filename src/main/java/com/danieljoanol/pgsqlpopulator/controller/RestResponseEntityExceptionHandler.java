@@ -21,6 +21,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
+        //TODO: add a message for VarcharType
+
+        System.err.println(ex.getMessage());
+
         FieldType[] types = FieldType.values();
         String[] typeNames = new String[ types.length ];
         

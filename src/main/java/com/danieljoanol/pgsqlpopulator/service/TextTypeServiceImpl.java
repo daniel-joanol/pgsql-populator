@@ -37,56 +37,6 @@ public class TextTypeServiceImpl implements TextTypesService {
         
     }
 
-    public String generateValue(String type) {
-        
-        final EasyRandom generator = new EasyRandom();
-        String value = "";
-
-        switch (type) {
-
-            case "CHAR":
-                value = generator.nextObject(Character.class).toString();
-                break;
-
-            case "FIRST_NAME":
-                value = faker.name().firstName();
-                break;
-
-            case "LAST_NAME":
-                value = faker.name().lastName();
-                break;
-
-            case "FULL_NAME":
-                value = faker.name().fullName();
-                break;
-
-            case "ADDRESS":
-                Address address = faker.address();
-                value = address.toString();
-                break;
-
-            case "COMPANY":
-                value = faker.company().name();
-                break;
-
-            case "COLOR":
-                value = faker.color().name();
-                break;
-
-            case "ID_NUMBER":
-                value = faker.idNumber().toString();
-                break;
-
-            case "PHONE_NUMBER":
-                value = faker.phoneNumber().phoneNumber();
-                break;
-
-        }
-
-        return value;
-
-    }
-
     public Query generateValue(Query queryObj, Boolean unique, String typeName, String type) {
 
         String value = generateValue(type);
@@ -117,6 +67,51 @@ public class TextTypeServiceImpl implements TextTypesService {
         }
 
         return addFinalValue(value, queryObj);
+    }
+
+    public String generateValue(String type) {
+        
+        String value = "";
+
+        switch (type) {
+
+            case "CHAR":
+                final EasyRandom generator = new EasyRandom();
+                value = generator.nextObject(Character.class).toString();
+                break;
+
+            case "FIRST_NAME":
+                value = faker.name().firstName();
+                break;
+
+            case "LAST_NAME":
+                value = faker.name().lastName();
+                break;
+
+            case "FULL_NAME":
+                value = faker.name().fullName();
+                break;
+
+            case "ADDRESS":
+                value = faker.address().fullAddress();
+                break;
+
+            case "COMPANY":
+                value = faker.company().name();
+                break;
+
+            case "ID_NUMBER":
+                value = faker.idNumber().valid();
+                break;
+
+            case "PHONE_NUMBER":
+                value = faker.phoneNumber().phoneNumber();
+                break;
+
+        }
+
+        return value;
+
     }
 
     public Query addFinalValue(String value, Query queryObj) {

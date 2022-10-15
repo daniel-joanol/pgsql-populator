@@ -29,7 +29,7 @@ public class PopulatorServiceImpl implements PopulatorService {
         for (int i = 0; i < recordsNumber; i++) {
             
             if (i != 0) {
-                query += "\n";
+                query += "\n\n";
             }
 
             query += "INSERT INTO " + tableName + "(";

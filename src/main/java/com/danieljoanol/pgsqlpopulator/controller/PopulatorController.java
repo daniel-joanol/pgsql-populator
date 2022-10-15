@@ -38,14 +38,14 @@ public class PopulatorController {
     public ResponseEntity<String> createQuery(
             @RequestParam(required = true) String tableName,
             @RequestParam(required = true) Integer recordsNumber,
-            @RequestBody(required = false) List<GenericType> fields
+            @RequestBody(required = true) List<GenericType> fields
     ) {
 
         if (recordsNumber <= 0 || recordsNumber > 100) {
             return ResponseEntity.badRequest().body("RecordsNumber has to be bigger than 0 and lesser than 100");
         }
 
-        if (fields == null || fields.isEmpty()) {
+        if (fields.isEmpty()) {
             return ResponseEntity.badRequest().body("Fields can't be empty");
         }
 
