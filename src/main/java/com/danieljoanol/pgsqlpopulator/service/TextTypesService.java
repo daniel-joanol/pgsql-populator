@@ -1,12 +1,11 @@
 package com.danieljoanol.pgsqlpopulator.service;
 
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
-import com.danieljoanol.pgsqlpopulator.model.text.Char;
 import com.danieljoanol.pgsqlpopulator.model.utils.Query;
 
 public interface TextTypesService {
 
-    public Query addCharValue(Char field, Query queryObj);
+    public Query addCharValue(GenericType field, Query queryObj);
 
     public Query addEnumValue(GenericType field, Query queryObj);
 

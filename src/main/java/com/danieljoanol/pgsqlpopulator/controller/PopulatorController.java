@@ -16,14 +16,14 @@ import com.danieljoanol.pgsqlpopulator.model.GenericType;
 import com.danieljoanol.pgsqlpopulator.service.PopulatorService;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Controller
 @RequestMapping("/api/v1/populator")
-@Tag(name = "Populator Controller", description = "PgSQL Populator Api")
+@Api(value = "Populator Controller", description = "PgSQL Populator Api")
 public class PopulatorController {
     
     @Autowired
@@ -43,7 +43,7 @@ public class PopulatorController {
     ) {
 
         if (recordsNumber <= 0 || recordsNumber > 100) {
-            return ResponseEntity.badRequest().body("recordsNumber has to be bigger than 0 and lesser than 100");
+            return ResponseEntity.badRequest().body("RecordsNumber has to be bigger than 0 and lesser than 100");
         }
 
         if (fields.isEmpty()) {
