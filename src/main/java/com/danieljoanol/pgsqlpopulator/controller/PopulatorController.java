@@ -1,6 +1,5 @@
 package com.danieljoanol.pgsqlpopulator.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +38,14 @@ public class PopulatorController {
     public ResponseEntity<String> createQuery(
             @RequestParam(required = true) String tableName,
             @RequestParam(required = true) Integer recordsNumber,
-            @RequestBody(required = true) List<GenericType> fields
+            @RequestBody(required = false) List<GenericType> fields
     ) {
 
         if (recordsNumber <= 0 || recordsNumber > 100) {
             return ResponseEntity.badRequest().body("RecordsNumber has to be bigger than 0 and lesser than 100");
         }
 
-        if (fields.isEmpty()) {
+        if (fields == null || fields.isEmpty()) {
             return ResponseEntity.badRequest().body("Fields can't be empty");
         }
 

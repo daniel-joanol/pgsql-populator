@@ -25,7 +25,7 @@ public class PopulatorServiceImpl implements PopulatorService {
         for (GenericType field : fields) {
             fieldNames.add(field.getName());
         }
-
+        
         for (int i = 0; i < recordsNumber; i++) {
             
             if (i != 0) {
@@ -37,7 +37,7 @@ public class PopulatorServiceImpl implements PopulatorService {
             queryObj.setQuery(query);
 
             for (GenericType field : fields) {
-                queryObj = addValue(field, queryObj);
+                queryObj = textTypesService.addValue(field, queryObj);
             }
 
             query = queryObj.getQuery();
@@ -46,45 +46,6 @@ public class PopulatorServiceImpl implements PopulatorService {
         }
 
         return query;
-    }
-
-    public Query addValue(GenericType field, Query queryObj) {
-
-        switch (field.getType()) {
-            case CHAR:
-                queryObj = textTypesService.addCharValue(field, queryObj);
-                break;
-
-            case ENUM:
-                queryObj = textTypesService.addEnumValue(field, queryObj);
-                break;
-
-            case LONGTEXT:
-                queryObj = textTypesService.addLongTextValue(field, queryObj);
-                break;
-
-            case MEDIUMTEXT:
-                queryObj = textTypesService.addMediumTextValue(field, queryObj);
-                break;
-
-            case SET:
-                queryObj = textTypesService.addSetValue(field, queryObj);
-                break;
-
-            case TEXT:
-                queryObj = textTypesService.addTextValue(field, queryObj);
-                break;
-
-            case TINYTEXT:
-                queryObj = textTypesService.addTinyTextValue(field, queryObj);
-                break;
-
-            case VARCHAR:
-                queryObj = textTypesService.addVarcharValue(field, queryObj);
-                break;
-        }
-
-        return queryObj;
     }
     
 }
