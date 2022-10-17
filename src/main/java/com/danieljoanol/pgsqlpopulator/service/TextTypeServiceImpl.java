@@ -5,31 +5,35 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import org.jeasy.random.EasyRandom;
 
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
 import com.danieljoanol.pgsqlpopulator.model.utils.Query;
-import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
 
 @Service
 public class TextTypeServiceImpl implements TextTypesService {
 
     Faker faker = new Faker(new Locale("en-US"));
+    Random random = new Random();
 
     @Override
     public Query addValue(GenericType field, Query queryObj) {
-
-        final String typeName = field.getName();
         
         switch (field.getType()) {
 
             case CHAR:
-                return generateValue(queryObj, field.getUnique(), typeName, "CHAR");
+                return generateValue(queryObj, field.getType().toString(), field);
 
-            case VARCHAR:
-                return generateValue(queryObj, field.getUnique(), typeName, field.getVarcharType().toString());
+            case ENUM:
+                field.setUnique(false);
+                field.setLength(null);
+                return generateValue(queryObj, field.getType().toString(), field);
+
+            case VARCHAR, TEXT:
+                return generateValue(queryObj, field.getVarcharType().toString(), field);
         
             default:
                 return null;
@@ -37,39 +41,40 @@ public class TextTypeServiceImpl implements TextTypesService {
         
     }
 
-    public Query generateValue(Query queryObj, Boolean unique, String typeName, String type) {
+    public Query generateValue(Query queryObj, String type, GenericType field) {
 
-        String value = generateValue(type);
+        final String fieldName = field.getName();
         boolean isPresent = true;
+        String value = generateValue(type, field);
+        
+        if (field.getUnique()) {
 
-        if (unique) {
-
-            if (queryObj.getUniqueValues().get(typeName) != null) {
+            if (queryObj.getUniqueValues().get(fieldName) != null) {
 
                 do {
 
-                    if (queryObj.getUniqueValues().get(typeName).contains(value)) {
-                        value = generateValue(type);
+                    if (queryObj.getUniqueValues().get(fieldName).contains(value)) {
+                        value = generateValue(type, field);
                     } else {
                         isPresent = false;
                     }
 
                 } while (isPresent);
 
-                queryObj.getUniqueValues().get(typeName).add(value);
+                queryObj.getUniqueValues().get(fieldName).add(value);
 
             } else {
 
                 List<String> values = new ArrayList<>();
                 values.add(value);
-                queryObj.getUniqueValues().put(typeName, values);
+                queryObj.getUniqueValues().put(fieldName, values);
             }
         }
 
         return addFinalValue(value, queryObj);
     }
 
-    public String generateValue(String type) {
+    public String generateValue(String type, GenericType field) {
         
         String value = "";
 
@@ -108,6 +113,21 @@ public class TextTypeServiceImpl implements TextTypesService {
                 value = faker.phoneNumber().phoneNumber();
                 break;
 
+            case "ENUM":
+
+                if (field.getItems() == null) {
+                    throw new IllegalArgumentException("Items can't be null");
+                }
+
+                String[] items = field.getItems();
+                Integer n = random.nextInt(items.length);
+                value = items[n];
+                break;
+
+        }
+
+        if (field.getLength() != null) {
+            value = value.substring(0, field.getLength());
         }
 
         return value;

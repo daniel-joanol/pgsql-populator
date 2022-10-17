@@ -1,8 +1,5 @@
 package com.danieljoanol.pgsqlpopulator.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.danieljoanol.pgsqlpopulator.model.enumarator.FieldType;
 import com.danieljoanol.pgsqlpopulator.model.enumarator.VarcharType;
 
@@ -21,7 +18,8 @@ public class GenericType {
     private FieldType type;
     private VarcharType varcharType;
     private Boolean unique;
-    private List<String> items = new ArrayList<>();
+    private String[] items;
+    private Integer length;
 
     // Char
     public GenericType(String name, FieldType type, Boolean unique) {
@@ -30,12 +28,20 @@ public class GenericType {
         this.unique = unique;
     }
 
-    // Varchar
-    public GenericType(String name, FieldType type, Boolean unique, VarcharType varcharType) {
+    // Varchar and Text
+    public GenericType(String name, FieldType type, Boolean unique, VarcharType varcharType,
+            Integer length) {
         this.name = name;
         this.type = type;
         this.unique = unique;
         this.varcharType = varcharType;
+        this.length = length;
+    }
+
+    // Enum
+    public GenericType(String name, String[] items) {
+        this.name = name;
+        this.items = items;
     }
     
 }
