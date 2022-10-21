@@ -1,13 +1,14 @@
 package com.danieljoanol.pgsqlpopulator.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
-import com.danieljoanol.pgsqlpopulator.model.utils.Query;
 
 @Service
 public class PopulatorServiceImpl implements PopulatorService {
@@ -18,34 +19,33 @@ public class PopulatorServiceImpl implements PopulatorService {
     @Override
     public String createQuery(String tableName, Integer recordsNumber, List<GenericType> fields) {
         
-        Query queryObj = new Query();
         List<String> fieldNames = new ArrayList<>();
-        String query = "";
+        Map<String, List<String>> mappedValues = new HashMap<>();
+
+        for (GenericType field : fields) {
+            List<String> values = textTypesService.generateValues(field, recordsNumber);
+            mappedValues.put(field.getName(), values);
+        }
 
         for (GenericType field : fields) {
             fieldNames.add(field.getName());
         }
-        
+
+        String query = "INSERT INTO " + tableName + "(";
+        query += String.join(", ", fieldNames) + ")";
+
         for (int i = 0; i < recordsNumber; i++) {
+            query += "\n   VALUES (";
             
-            if (i != 0) {
-                query += "\n\n";
+            for (String key : mappedValues.keySet()) {
+                List<String> values = mappedValues.get(key);
+                query += "'" + values.get(i) + "',";
             }
 
-            query += "INSERT INTO " + tableName + "(";
-            query += String.join(", ", fieldNames) + ") VALUES (";
-            queryObj.setQuery(query);
-
-            for (GenericType field : fields) {
-                queryObj = textTypesService.addValue(field, queryObj);
-            }
-
-            query = queryObj.getQuery();
-            query = query.substring(0, query.length() -2) + ");";
-
+            query = query.substring(0, query.length() -1) + "),";
         }
-
+        
+        query = query.substring(0, query.length() -1) + ";";
         return query;
     }
-    
 }

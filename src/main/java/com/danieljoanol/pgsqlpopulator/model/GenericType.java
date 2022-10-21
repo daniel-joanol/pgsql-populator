@@ -17,23 +17,20 @@ public class GenericType {
     private String name;
     private FieldType type;
     private VarcharType varcharType;
-    private Boolean unique;
     private String[] items;
     private Integer length;
 
     // Char
-    public GenericType(String name, FieldType type, Boolean unique) {
+    public GenericType(String name, FieldType type) {
         this.name = name;
         this.type = type;
-        this.unique = unique;
     }
 
     // Varchar and Text
-    public GenericType(String name, FieldType type, Boolean unique, VarcharType varcharType,
+    public GenericType(String name, FieldType type, VarcharType varcharType,
             Integer length) {
         this.name = name;
         this.type = type;
-        this.unique = unique;
         this.varcharType = varcharType;
         this.length = length;
     }

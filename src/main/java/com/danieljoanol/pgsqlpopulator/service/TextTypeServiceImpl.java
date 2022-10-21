@@ -3,15 +3,17 @@ package com.danieljoanol.pgsqlpopulator.service;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.jeasy.random.EasyRandom;
-
+import com.danieljoanol.pgsqlpopulator.model.Chars;
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
-import com.danieljoanol.pgsqlpopulator.model.utils.Query;
-import com.github.javafaker.Faker;
+
+import net.datafaker.Faker;
 
 @Service
 public class TextTypeServiceImpl implements TextTypesService {
@@ -20,20 +22,20 @@ public class TextTypeServiceImpl implements TextTypesService {
     Random random = new Random();
 
     @Override
-    public Query addValue(GenericType field, Query queryObj) {
+    public List<String> generateValues(GenericType field, Integer recordsNumber) {
         
         switch (field.getType()) {
 
             case CHAR:
-                return generateValue(queryObj, field.getType().toString(), field);
+                field.setLength(null);
+                return generateValue(field.getType().toString(), field, recordsNumber);
 
             case ENUM:
-                field.setUnique(false);
                 field.setLength(null);
-                return generateValue(queryObj, field.getType().toString(), field);
+                return generateValue(field.getType().toString(), field, recordsNumber);
 
             case VARCHAR, TEXT:
-                return generateValue(queryObj, field.getVarcharType().toString(), field);
+                return generateValue(field.getVarcharType().toString(), field, recordsNumber);
         
             default:
                 return null;
@@ -41,76 +43,73 @@ public class TextTypeServiceImpl implements TextTypesService {
         
     }
 
-    public Query generateValue(Query queryObj, String type, GenericType field) {
-
-        final String fieldName = field.getName();
-        boolean isPresent = true;
-        String value = generateValue(type, field);
+    public List<String> generateValue(String type, GenericType field, Integer recordsNumber) {
         
-        if (field.getUnique()) {
-
-            if (queryObj.getUniqueValues().get(fieldName) != null) {
-
-                do {
-
-                    if (queryObj.getUniqueValues().get(fieldName).contains(value)) {
-                        value = generateValue(type, field);
-                    } else {
-                        isPresent = false;
-                    }
-
-                } while (isPresent);
-
-                queryObj.getUniqueValues().get(fieldName).add(value);
-
-            } else {
-
-                List<String> values = new ArrayList<>();
-                values.add(value);
-                queryObj.getUniqueValues().put(fieldName, values);
-            }
-        }
-
-        return addFinalValue(value, queryObj);
-    }
-
-    public String generateValue(String type, GenericType field) {
-        
-        String value = "";
+        List<String> values = new ArrayList<>();
+        String value;
 
         switch (type) {
 
             case "CHAR":
-                final EasyRandom generator = new EasyRandom();
-                value = generator.nextObject(Character.class).toString();
+                
+                if (recordsNumber < values.size()) {
+                    values = Arrays.asList(Chars.array);
+                } else {
+                    List<String> valuesA = Arrays.asList(Chars.array);
+                    List<String> valuesB = Arrays.asList(Chars.array);
+                    values = Stream.concat(valuesA.stream(), valuesB.stream())
+                            .collect(Collectors.toList());
+                }
+
                 break;
 
             case "FIRST_NAME":
-                value = faker.name().firstName();
+                values = faker.collection(
+                        () -> faker.name().firstName())
+                    .len(recordsNumber)
+                    .generate();
                 break;
 
             case "LAST_NAME":
-                value = faker.name().lastName();
+                values = faker.collection(
+                    () -> faker.name().lastName())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "FULL_NAME":
-                value = faker.name().fullName();
+                values = faker.collection(
+                    () -> faker.name().fullName())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "ADDRESS":
-                value = faker.address().fullAddress();
+                values = faker.collection(
+                    () -> faker.address().fullAddress())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "COMPANY":
-                value = faker.company().name();
+                values = faker.collection(
+                    () -> faker.company().name())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "ID_NUMBER":
-                value = faker.idNumber().valid();
+                values = faker.collection(
+                    () -> faker.idNumber().valid())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "PHONE_NUMBER":
-                value = faker.phoneNumber().phoneNumber();
+                values = faker.collection(
+                    () -> faker.phoneNumber().cellPhone())
+                .len(recordsNumber)
+                .generate();
                 break;
 
             case "ENUM":
@@ -121,25 +120,28 @@ public class TextTypeServiceImpl implements TextTypesService {
 
                 String[] items = field.getItems();
                 Integer n = random.nextInt(items.length);
-                value = items[n];
+
+                for (int i = 0; i < recordsNumber; i++) {
+                    value = items[n];
+                    values.add(value);
+                }
+                
                 break;
 
         }
 
-        if (field.getLength() != null) {
-            value = value.substring(0, field.getLength());
+        if (field.getLength() != null ) {
+            for (int i = 0; i < recordsNumber; i++) {
+                value = values.get(i);
+    
+                if (value.length() > field.getLength()) {
+                    value = value.substring(0, field.getLength());
+                }
+                
+            }
         }
 
-        return value;
-
+        return values;
     }
 
-    public Query addFinalValue(String value, Query queryObj) {
-        
-        String query = queryObj.getQuery();
-        query += "'" + value + "', ";
-        queryObj.setQuery(query);
-
-        return queryObj;
-    }
 }

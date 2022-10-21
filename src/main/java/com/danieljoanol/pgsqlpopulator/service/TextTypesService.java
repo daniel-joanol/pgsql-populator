@@ -1,10 +1,11 @@
 package com.danieljoanol.pgsqlpopulator.service;
 
+import java.util.List;
+
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
-import com.danieljoanol.pgsqlpopulator.model.utils.Query;
 
 public interface TextTypesService {
 
-    public Query addValue(GenericType field, Query queryObj);
+    public List<String> generateValues(GenericType field, Integer recordsNumber);
 
 }

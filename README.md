@@ -24,14 +24,12 @@ I describe below the field types available and what parameters from GenericType 
 ### VARCHAR
 
 * String name;
-* Boolean unique;
 * Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER)
 * Integer length;
 
 ### TEXT
 
 * String name;
-* Boolean unique;
 * Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER)
 * Integer length;
 

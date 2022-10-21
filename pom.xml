@@ -20,6 +20,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.7.4</version>
 		</dependency>
 
 		<!-- Swagger -->
@@ -36,17 +37,10 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Easy Random and Java Faker for generating random values -->
 		<dependency>
-			<groupId>org.jeasy</groupId>
-			<artifactId>easy-random-core</artifactId>
-			<version>5.0.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.javafaker</groupId>
-			<artifactId>javafaker</artifactId>
-			<version>1.0.2</version>
+			<groupId>net.datafaker</groupId>
+			<artifactId>datafaker</artifactId>
+			<version>1.6.0</version>
 		</dependency>
 
 		<!-- Test -->
