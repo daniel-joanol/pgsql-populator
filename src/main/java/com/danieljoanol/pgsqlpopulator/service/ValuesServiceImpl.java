@@ -26,7 +26,7 @@ public class ValuesServiceImpl implements ValuesService {
         
         switch (field.getType()) {
 
-            case CHAR, ENUM, SMALL_INT, INTEGER, BIG_INT:
+            case CHAR, ENUM, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN:
                 field.setLength(null);
                 return generateValue(field.getType().toString(), field, recordsNumber);
 
@@ -39,7 +39,7 @@ public class ValuesServiceImpl implements ValuesService {
         
     }
 
-    public List<String> generateValue(String type, GenericType field, Integer recordsNumber) {
+    private List<String> generateValue(String type, GenericType field, Integer recordsNumber) {
         
         List<String> strValues = new ArrayList<>();
         String strValue;
@@ -65,10 +65,10 @@ public class ValuesServiceImpl implements ValuesService {
                 
                 strValues = faker.collection(
                         () -> faker.name().firstName())
-                    .len(recordsNumber)
-                    .generate();
+                .len(recordsNumber)
+                .generate();
                 
-                    break;
+                break;
 
             case "LAST_NAME":
                 
@@ -142,7 +142,7 @@ public class ValuesServiceImpl implements ValuesService {
 
                 intValues = faker.collection(
                     () -> faker.number().numberBetween(-32768, 32767))
-                    .len(recordsNumber)
+                .len(recordsNumber)
                 .generate();
 
                 strValues = intValues.stream().map(String::valueOf).collect(Collectors.toList());
@@ -153,23 +153,33 @@ public class ValuesServiceImpl implements ValuesService {
 
                 intValues = faker.collection(
                     () -> faker.number().numberBetween(-2147483648, 2147483647))
-                    .len(recordsNumber)
+                .len(recordsNumber)
                 .generate();
 
                 strValues = intValues.stream().map(String::valueOf).collect(Collectors.toList());
 
                 break;
 
-            case "BIG_INT":
+            case "BIG_INT", "MONEY":
 
                 longValues = faker.collection(
                     () -> faker.number().numberBetween(-9223372036854775808L, 9223372036854775807L))
-                    .len(recordsNumber)
+                .len(recordsNumber)
                 .generate();
 
                 strValues = longValues.stream().map(String::valueOf).collect(Collectors.toList());
 
                 break;
+
+            case "BOOLEAN":
+
+                intValues = faker.collection(
+                    () -> faker.number().numberBetween(0, 2))
+                .len(recordsNumber)
+                .generate();
+
+                strValues = intValues.stream().map(this::createBoolean).collect(Collectors.toList());
+
 
         }
 
@@ -185,6 +195,15 @@ public class ValuesServiceImpl implements ValuesService {
         }
 
         return strValues;
+    }
+
+    private String createBoolean(Integer n) {
+        
+        if (n == 1) {
+            return "false";
+        } else {
+            return "true";
+        }
     }
 
 }

@@ -20,7 +20,7 @@ public class GenericType {
     private String[] items;
     private Integer length;
 
-    // CHAR, SMALLINT, INTEGER and BIG_INT
+    // CHAR, BOOLEAN, SMALLINT, INTEGER, BIG_INT and MONEY
     public GenericType(String name, FieldType type) {
         this.name = name;
         this.type = type;
