@@ -14,7 +14,7 @@ import com.danieljoanol.pgsqlpopulator.model.GenericType;
 public class PopulatorServiceImpl implements PopulatorService {
 
     @Autowired
-    private TextTypesService textTypesService;
+    private ValuesService valuesService;
 
     @Override
     public String createQuery(String tableName, Integer recordsNumber, List<GenericType> fields) {
@@ -23,7 +23,7 @@ public class PopulatorServiceImpl implements PopulatorService {
         Map<String, List<String>> mappedValues = new HashMap<>();
 
         for (GenericType field : fields) {
-            List<String> values = textTypesService.generateValues(field, recordsNumber);
+            List<String> values = valuesService.generateValues(field, recordsNumber);
             mappedValues.put(field.getName(), values);
         }
 
@@ -37,7 +37,7 @@ public class PopulatorServiceImpl implements PopulatorService {
         for (int i = 0; i < recordsNumber; i++) {
             query += "\n   VALUES (";
             
-            for (String key : mappedValues.keySet()) {
+            for (String key : fieldNames) {
                 List<String> values = mappedValues.get(key);
                 query += "'" + values.get(i) + "',";
             }
