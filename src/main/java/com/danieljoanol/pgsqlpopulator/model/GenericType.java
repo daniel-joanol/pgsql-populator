@@ -20,13 +20,13 @@ public class GenericType {
     private String[] items;
     private Integer length;
 
-    // Char
+    // CHAR, SMALLINT, INTEGER and BIG_INT
     public GenericType(String name, FieldType type) {
         this.name = name;
         this.type = type;
     }
 
-    // Varchar and Text
+    // VARCHAR and TEXT
     public GenericType(String name, FieldType type, VarcharType varcharType,
             Integer length) {
         this.name = name;
@@ -35,7 +35,7 @@ public class GenericType {
         this.length = length;
     }
 
-    // Enum
+    // ENUM
     public GenericType(String name, String[] items) {
         this.name = name;
         this.items = items;
