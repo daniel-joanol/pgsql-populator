@@ -15,7 +15,7 @@ Some of these fields are the enum fieldType, that will be used for all types.
 
 I describe below the field types available and what parameters from GenericType they actually use.
 
-### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN
+### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID
 
 * String name.
 

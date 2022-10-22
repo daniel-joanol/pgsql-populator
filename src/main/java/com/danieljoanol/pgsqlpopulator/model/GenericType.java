@@ -28,7 +28,7 @@ public class GenericType {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    // CHAR, BOOLEAN, SMALLINT, INTEGER, BIG_INT and MONEY
+    // CHAR, BOOLEAN, UUID, SMALLINT, INTEGER, BIG_INT and MONEY
     public GenericType(String name, FieldType type) {
         this.name = name;
         this.type = type;

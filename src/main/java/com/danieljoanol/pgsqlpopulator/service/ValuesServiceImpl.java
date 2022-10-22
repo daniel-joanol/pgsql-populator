@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,7 +30,7 @@ public class ValuesServiceImpl implements ValuesService {
         
         switch (field.getType()) {
 
-            case CHAR, ENUM, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN:
+            case CHAR, ENUM, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID:
                 field.setLength(null);
                 return generateValue(field.getType().toString(), field, recordsNumber);
 
@@ -212,6 +213,25 @@ public class ValuesServiceImpl implements ValuesService {
                 }
 
                 strValues = timeValues.stream().map(Dates::createTimestamp).collect(Collectors.toList());
+                break;
+
+            case "UUID":
+
+                boolean newValue = false;
+
+                for (int i = 0; i < recordsNumber; i++) {
+                    do {
+                        
+                        strValue = UUID.randomUUID().toString();
+
+                        if (!strValues.contains(strValue)) {
+                            newValue = true;
+                            strValues.add(strValue);
+                        }
+
+                    } while (!newValue);
+                }
+                
                 break;
 
         }
