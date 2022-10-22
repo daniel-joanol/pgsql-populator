@@ -3,8 +3,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 ## Libraries
 
-* EasyRandom
-* JavaFaker
+* Datafaker
 * Swagger
 * Lombok
 
@@ -16,10 +15,9 @@ Some of these fields are the enum fieldType, that will be used for all types.
 
 I describe below the field types available and what parameters from GenericType they actually use.
 
-### CHAR
+### CHAR, SMALL_INT, INTEGER and BIG_INT
 
 * String name;
-* Boolean unique;
 
 ### VARCHAR
 
@@ -37,3 +35,4 @@ I describe below the field types available and what parameters from GenericType 
 
 * String name;
 * String[] items;
+
