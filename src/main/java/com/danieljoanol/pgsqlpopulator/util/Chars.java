@@ -1,4 +1,4 @@
-package com.danieljoanol.pgsqlpopulator.model;
+package com.danieljoanol.pgsqlpopulator.util;
 
 public class Chars {
     

@@ -15,7 +15,7 @@ Some of these fields are the enum fieldType, that will be used for all types.
 
 I describe below the field types available and what parameters from GenericType they actually use.
 
-### CHAR
+### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN
 
 * String name.
 
@@ -36,22 +36,8 @@ I describe below the field types available and what parameters from GenericType 
 * String name;
 * String[] items.
 
-## SMALL_INT
+### DATE, TIME and TIMESTAMP
 
-* String name.
-
-## INTEGER
-
-* String name.
-
-## BIG_INT
-
-* String name.
-
-## MONEY
-
-* String name.
-
-## BOOLEAN
-
-* String name.
+* String name;
+* LocalDateTime startDate;
+* LocalDateTime endDate;

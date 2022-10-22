@@ -2,6 +2,7 @@ package com.danieljoanol.pgsqlpopulator.service;
 
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.danieljoanol.pgsqlpopulator.model.Chars;
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
+import com.danieljoanol.pgsqlpopulator.util.Booleans;
+import com.danieljoanol.pgsqlpopulator.util.Chars;
+import com.danieljoanol.pgsqlpopulator.util.Dates;
 
 import net.datafaker.Faker;
 
@@ -31,7 +34,16 @@ public class ValuesServiceImpl implements ValuesService {
                 return generateValue(field.getType().toString(), field, recordsNumber);
 
             case VARCHAR, TEXT:
-                return generateValue(field.getVarcharType().toString(), field, recordsNumber);
+                return generateValue(field.getVarcharType().name(), field, recordsNumber);
+
+            case DATE, TIME, TIMESTAMP:
+
+                if (field.getStartDate() == null || field.getEndDate() == null) {
+                    throw new IllegalArgumentException("startDate or endDate can't be null for types DATE, TIME and TIMESTAMP");
+                }
+
+                field.setLength(null);
+                return generateValue(field.getType().toString(), field, recordsNumber);
         
             default:
                 return null;
@@ -45,6 +57,7 @@ public class ValuesServiceImpl implements ValuesService {
         String strValue;
         List<Integer> intValues = new ArrayList<>();
         List<Long> longValues = new ArrayList<>();
+        List<Timestamp> timeValues = new ArrayList<>();
 
         switch (type) {
 
@@ -178,8 +191,28 @@ public class ValuesServiceImpl implements ValuesService {
                 .len(recordsNumber)
                 .generate();
 
-                strValues = intValues.stream().map(this::createBoolean).collect(Collectors.toList());
+                strValues = intValues.stream().map(Booleans::createBoolean).collect(Collectors.toList());
+                break;
 
+            case "DATE", "TIME", "TIMESTAMP":
+                
+                timeValues = faker.collection(
+                    () -> faker.date().between(
+                                Timestamp.valueOf(field.getStartDate()), 
+                                Timestamp.valueOf(field.getEndDate())))
+                .len(recordsNumber)
+                .generate();
+
+                if (type.equals("DATE")) {
+                    strValues = timeValues.stream().map(Dates::createDate).collect(Collectors.toList());
+                }
+
+                if (type.equals("TIME")) {
+                    strValues = timeValues.stream().map(Dates::createTime).collect(Collectors.toList());
+                }
+
+                strValues = timeValues.stream().map(Dates::createTimestamp).collect(Collectors.toList());
+                break;
 
         }
 
@@ -195,15 +228,6 @@ public class ValuesServiceImpl implements ValuesService {
         }
 
         return strValues;
-    }
-
-    private String createBoolean(Integer n) {
-        
-        if (n == 1) {
-            return "false";
-        } else {
-            return "true";
-        }
     }
 
 }

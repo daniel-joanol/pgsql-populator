@@ -1,5 +1,7 @@
 package com.danieljoanol.pgsqlpopulator.model;
 
+import java.time.LocalDateTime;
+
 import com.danieljoanol.pgsqlpopulator.model.enumarator.FieldType;
 import com.danieljoanol.pgsqlpopulator.model.enumarator.VarcharType;
 
@@ -16,9 +18,15 @@ public class GenericType {
 
     private String name;
     private FieldType type;
+    
     private VarcharType varcharType;
+    
     private String[] items;
+    
     private Integer length;
+    
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     // CHAR, BOOLEAN, SMALLINT, INTEGER, BIG_INT and MONEY
     public GenericType(String name, FieldType type) {
@@ -36,9 +44,19 @@ public class GenericType {
     }
 
     // ENUM
-    public GenericType(String name, String[] items) {
+    public GenericType(String name, FieldType type, String[] items) {
         this.name = name;
+        this.type = type;
         this.items = items;
+    }
+
+    // DATE, TIME and TIMESTAMP
+    public GenericType(String name, FieldType type, LocalDateTime startDate, 
+            LocalDateTime endDate) {
+        this.name = name;
+        this.type = type;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
     
 }
