@@ -3,8 +3,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 ## Libraries
 
-* EasyRandom
-* JavaFaker
+* Datafaker
 * Swagger
 * Lombok
 
@@ -16,13 +15,29 @@ Some of these fields are the enum fieldType, that will be used for all types.
 
 I describe below the field types available and what parameters from GenericType they actually use.
 
-### CHAR
+### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID
 
-* String name;
-* Boolean unique;
+* String name.
 
 ### VARCHAR
 
 * String name;
-* Boolean unique;
-* enum FieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, COLOR, ID_NUMBER, PHONE_NUMBER)
+* Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);
+* Integer length.
+
+### TEXT
+
+* String name;
+* Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);
+* Integer length.
+
+### ENUM
+
+* String name;
+* String[] items.
+
+### DATE, TIME and TIMESTAMP
+
+* String name;
+* LocalDateTime startDate;
+* LocalDateTime endDate;
