@@ -42,11 +42,11 @@ public class PopulatorController {
     ) {
 
         if (recordsNumber <= 0 || recordsNumber > 100) {
-            return ResponseEntity.badRequest().body("RecordsNumber has to be bigger than 0 and lesser than 100");
+            throw new IllegalArgumentException("RecordsNumber has to be bigger than 0 and lesser than 100");
         }
 
         if (fields.isEmpty()) {
-            return ResponseEntity.badRequest().body("Fields can't be empty");
+            throw new IllegalArgumentException("Fields can't be empty");
         }
 
         return ResponseEntity.ok(service.createQuery(tableName, recordsNumber, fields));

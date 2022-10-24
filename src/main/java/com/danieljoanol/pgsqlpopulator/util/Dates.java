@@ -37,7 +37,7 @@ public class Dates {
         LocalDateTime dateTime = ts.toLocalDateTime();
 
         Integer hour = dateTime.getHour();
-        Integer minute = dateTime.getHour();
+        Integer minute = dateTime.getMinute();
         Integer second = dateTime.getSecond();
         String time = "";
         
