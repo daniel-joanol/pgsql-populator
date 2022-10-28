@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.danieljoanol.pgsqlpopulator.model.GenericType;
 import com.danieljoanol.pgsqlpopulator.service.PopulatorService;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.annotations.Api;
@@ -38,7 +38,7 @@ public class PopulatorController {
     public ResponseEntity<String> createQuery(
             @RequestParam(required = true) String tableName,
             @RequestParam(required = true) Integer recordsNumber,
-            @RequestBody(required = true) List<GenericType> fields
+            @RequestBody(required = true) List<JsonNode> fields
     ) {
 
         if (recordsNumber <= 0 || recordsNumber > 100) {

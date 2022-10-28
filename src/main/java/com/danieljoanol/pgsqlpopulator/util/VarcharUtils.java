@@ -1,14 +1,12 @@
 package com.danieljoanol.pgsqlpopulator.util;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import net.datafaker.Faker;
 
-public class Varchars {
+public class VarcharUtils {
 
-    private Varchars() {}
+    private VarcharUtils() {}
 
     public static List<String> generateFirstNames(Faker faker, Integer recordsNumber) {
         
@@ -59,22 +57,6 @@ public class Varchars {
                     () -> faker.phoneNumber().cellPhone())
                 .len(recordsNumber)
                 .generate();
-    }
-
-    public static List<String> generateEnums(Faker faker, Integer recordsNumber, String[] items) {
-
-        Random random = new Random();
-        List<String> strValues = new ArrayList<>();
-        String strValue;
-        
-        Integer n = random.nextInt(items.length);
-
-        for (int i = 0; i < recordsNumber; i++) {
-            strValue = items[n];
-            strValues.add(strValue);
-        }
-
-        return strValues;
     }
     
 }

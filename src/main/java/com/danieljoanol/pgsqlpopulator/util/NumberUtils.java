@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import net.datafaker.Faker;
 
-public class Numbers {
+public class NumberUtils {
     
     public static List<String> generateBigInts(Faker faker, Integer recordsNumber) {
 

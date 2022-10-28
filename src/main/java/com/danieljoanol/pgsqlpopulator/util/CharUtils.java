@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Chars {
+public class CharUtils {
     
     public static String[] array = new String[] {
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
@@ -18,7 +18,7 @@ public class Chars {
         "8", "9"
     };
 
-    private Chars() {}
+    private CharUtils() {}
 
     public static List<String> generateChars(Integer recordsNumber) {
 
