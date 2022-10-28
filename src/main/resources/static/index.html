@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PostgreSQL Popliator API</title>
+</head>
+
+<body style="margin:30px;padding:0">
+    <h2>PostgreSQL Popliator API</h2>
+
+    <p>This is a simple PostgreSQL popliator for practicing. As usual, suggestions, comments and corrections are
+        welcome!</p>
+    <p>The code is available at <a href="https://github.com/elodin19/pgsql-popliator">Github</a></p>
+
+    <h3>Libraries</h3>
+    <ul>
+        <li>Datafaker</li>
+        <li>Swagger</li>
+        <li>Lombok</li>
+    </ul>
+
+    <h3>Types and parameters</h3>
+    <p>Since the request body needs to have a single object, I decided to create a single class called GenericType with
+        every posible parameter that the fields need.</p>
+    <p>Some of these fields are the enum fieldType, that will be used for all types.</p>
+    <p>I describe below the field types available and what parameters from GenericType they actually use.</p>
+
+    <h3>CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID</h3>
+    <ul>
+        <li>String name.</li>
+    </ul>
+
+    <h3>VARCHAR</h3>
+    <ul>
+        <li>String name;</li>
+        <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
+        <li>Integer length.</li>
+    </ul>
+
+    <h3>TEXT</h3>
+    <ul>
+        <li>String name;</li>
+        <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
+        <li>Integer length.</li>
+    </ul>
+
+    <h3>ENUM</h3>
+    <ul>
+        <li>String name;</li>
+        <li>String[] items.</li>
+    </ul>
+
+    <h3>DATE, TIME and TIMESTAMP</h3>
+    <ul>
+        <li>String name;</li>
+        <li>LocalDateTime startDate;</li>
+        <li>LocalDateTime endDate;</li>
+    </ul>
+
+</body>
+
+</html>
