@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
-import com.danieljoanol.pgsqlpopulator.model.enumarator.FieldType;
 import com.danieljoanol.pgsqlpopulator.util.Booleans;
 import com.danieljoanol.pgsqlpopulator.util.Chars;
 import com.danieljoanol.pgsqlpopulator.util.Dates;
@@ -25,42 +24,39 @@ public class ValuesServiceImpl implements ValuesService {
     @Override
     public List<String> generateValues(GenericType field, Integer recordsNumber) {
 
-        List<FieldType> lengthNull = List.of(FieldType.CHAR, FieldType.SMALL_INT, FieldType.INTEGER, 
-                FieldType.BIG_INT, FieldType.MONEY, FieldType.BOOLEAN, FieldType.UUID);
+        switch (field.getType()) {
 
-        List<FieldType> dateType = List.of(FieldType.DATE, FieldType.TIME, FieldType.TIMESTAMP);
+            case CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID:
+                field.setLength(null);
+                return generateValue(field.getType().toString(), field, recordsNumber);
 
-        if (lengthNull.contains(field.getType())) {
-            field.setLength(null);
-            return generateValue(field.getType().toString(), field, recordsNumber);
+            case DATE, TIME, TIMESTAMP:
+                if (field.getStartDate() == null || field.getEndDate() == null) {
+                    throw new IllegalArgumentException(
+                            "startDate or endDate can't be null for types DATE, TIME and TIMESTAMP");
+                }
+
+                field.setLength(null);
+                return generateValue(field.getType().toString(), field, recordsNumber);
+
+            case ENUM:
+                field.setLength(null);
+                if (field.getItems() == null) {
+                    throw new IllegalArgumentException("Items can't be null");
+                }
+
+                return generateValue(field.getType().toString(), field, recordsNumber);
+
+            default:
+                return generateValue(field.getVarcharType().name(), field, recordsNumber);
         }
-
-        if (dateType.contains(field.getType())) {
-            if (field.getStartDate() == null || field.getEndDate() == null) {
-                throw new IllegalArgumentException("startDate or endDate can't be null for types DATE, TIME and TIMESTAMP");
-            }
-
-            field.setLength(null);
-            return generateValue(field.getType().toString(), field, recordsNumber);
-        }
-
-        if (field.getType() == FieldType.ENUM) {
-            field.setLength(null);
-            if (field.getItems() == null) {
-                throw new IllegalArgumentException("Items can't be null");
-            }
-
-            return generateValue(field.getType().toString(), field, recordsNumber);
-        }
-
-        return generateValue(field.getVarcharType().name(), field, recordsNumber);
     }
 
     private List<String> generateValue(String type, GenericType field, Integer recordsNumber) {
-        
+
         List<String> strValues = new ArrayList<>();
         String strValue;
-        
+
         switch (type) {
 
             case "CHAR":
@@ -107,11 +103,7 @@ public class ValuesServiceImpl implements ValuesService {
                 strValues = Numbers.generateIntegers(faker, recordsNumber);
                 break;
 
-            case "BIG_INT":
-                strValues = Numbers.generateBigInts(faker, recordsNumber);
-                break;
-
-            case "MONEY":
+            case "BIG_INT", "MONEY":
                 strValues = Numbers.generateBigInts(faker, recordsNumber);
                 break;
 
@@ -119,15 +111,7 @@ public class ValuesServiceImpl implements ValuesService {
                 strValues = Booleans.createBooleans(faker, recordsNumber);
                 break;
 
-            case "DATE":
-                strValues = Dates.generateDates(faker, type, field, recordsNumber);
-                break;
-
-            case "TIME":
-                strValues = Dates.generateDates(faker, type, field, recordsNumber);
-                break;
-
-            case "TIMESTAMP":
+            case "DATE", "TIME", "TIMESTAMP":
                 strValues = Dates.generateDates(faker, type, field, recordsNumber);
                 break;
 
@@ -137,14 +121,14 @@ public class ValuesServiceImpl implements ValuesService {
 
         }
 
-        if (field.getLength() != null ) {
+        if (field.getLength() != null) {
             for (int i = 0; i < recordsNumber; i++) {
                 strValue = strValues.get(i);
-    
+
                 if (strValue.length() > field.getLength()) {
                     strValue = strValue.substring(0, field.getLength());
                 }
-                
+
             }
         }
 

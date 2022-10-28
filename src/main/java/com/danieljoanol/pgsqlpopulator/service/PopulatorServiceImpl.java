@@ -48,8 +48,6 @@ public class PopulatorServiceImpl implements PopulatorService {
         String query = "INSERT INTO " + tableName + "(";
         query += String.join(", ", mappedNames.keySet()) + ")";
 
-        List<String> noQuotes = List.of("SMALL_INT", "INTEGER", "BIG_INT", "MONEY", "BOOLEAN");
-
         for (int i = 0; i < recordsNumber; i++) {
             query += "\n   VALUES (";
             
@@ -57,10 +55,14 @@ public class PopulatorServiceImpl implements PopulatorService {
                 List<String> values = mappedValues.get(key);
                 String fieldType = mappedNames.get(key);
 
-                if (noQuotes.contains(fieldType)) {
-                    query += " " + values.get(i) + ",";
-                } else {
-                    query += " '" + values.get(i) + "',";
+                switch (fieldType) {
+
+                    case "SMALL_INT", "INTEGER", "BIG_INT", "MONEY", "BOOLEAN":
+                        query += " " + values.get(i) + ",";
+                        break;
+
+                    default:
+                        query += " '" + values.get(i) + "',";
                 }
             }
 
