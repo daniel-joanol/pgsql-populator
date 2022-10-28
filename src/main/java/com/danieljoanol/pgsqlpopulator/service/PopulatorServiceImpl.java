@@ -57,7 +57,23 @@ public class PopulatorServiceImpl implements PopulatorService {
 
                 switch (fieldType) {
 
-                    case "SMALL_INT", "INTEGER", "BIG_INT", "MONEY", "BOOLEAN":
+                    case "SMALL_INT":
+                        query += " " + values.get(i) + ",";
+                        break;
+
+                    case "INTEGER":
+                        query += " " + values.get(i) + ",";
+                        break;
+
+                    case "BIG_INT":
+                        query += " " + values.get(i) + ",";
+                        break;
+
+                    case "MONEY":
+                        query += " " + values.get(i) + ",";
+                        break;
+
+                    case "BOOLEAN":
                         query += " " + values.get(i) + ",";
                         break;
 

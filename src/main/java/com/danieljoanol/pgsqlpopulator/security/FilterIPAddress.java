@@ -1,7 +1,6 @@
 package com.danieljoanol.pgsqlpopulator.security;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 import javax.servlet.Filter;

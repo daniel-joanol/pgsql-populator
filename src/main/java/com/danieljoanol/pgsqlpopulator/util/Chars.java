@@ -1,5 +1,11 @@
 package com.danieljoanol.pgsqlpopulator.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Chars {
     
     public static String[] array = new String[] {
@@ -13,4 +19,20 @@ public class Chars {
     };
 
     private Chars() {}
+
+    public static List<String> generateChars(Integer recordsNumber) {
+
+        List<String> strValues = new ArrayList<>();
+
+        if (recordsNumber < strValues.size()) {
+            strValues = Arrays.asList(array);
+        } else {
+            List<String> valuesA = Arrays.asList(array);
+            List<String> valuesB = Arrays.asList(array);
+            strValues = Stream.concat(valuesA.stream(), valuesB.stream())
+                    .collect(Collectors.toList());
+        }
+
+        return strValues;
+    }
 }
