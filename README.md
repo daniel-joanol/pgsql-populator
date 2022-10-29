@@ -9,9 +9,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 ## Types and parameters
 
-Each type has its own parameters.
-
-One of these parameters is the string type, that will be used for all types. 
+Each type has its own parameters, including the parameter string type, that will be used for all types. 
 
 I describe below the types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries.
 
