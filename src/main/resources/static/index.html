@@ -29,26 +29,46 @@
     <h3>CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID</h3>
     <ul>
         <li>String name.</li>
+
+        <p>{
+            "name": "character",
+            "type": "CHAR"
+        }</p>
     </ul>
 
-    <h3>VARCHAR</h3>
+    <h3>VARCHAR and TEXT</h3>
     <ul>
         <li>String name;</li>
         <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
         <li>Integer length.</li>
-    </ul>
 
-    <h3>TEXT</h3>
-    <ul>
-        <li>String name;</li>
-        <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
-        <li>Integer length.</li>
+        <p>{
+            "length": 10,
+            "name": "name",
+            "type": "VARCHAR",
+            "varcharType": "FIRST_NAME"
+        } 
+        
+        {
+            "name": "name",
+            "type": "VARCHAR",
+            "varcharType": "FIRST_NAME"
+        }</p>
     </ul>
 
     <h3>ENUM</h3>
     <ul>
         <li>String name;</li>
         <li>String[] items.</li>
+
+        <p>{
+            "items": [
+              "banana", "orange", "apple", "coconut", "pear"
+            ],
+            "name": "fruit",
+            "type": "ENUM"
+        }
+        </p>
     </ul>
 
     <h3>DATE, TIME and TIMESTAMP</h3>
@@ -56,6 +76,13 @@
         <li>String name;</li>
         <li>LocalDateTime startDate;</li>
         <li>LocalDateTime endDate;</li>
+
+        <p>{
+            "name": "date",
+            "type": "DATE",
+            "startDate": "2022-10-01T10:00:00",
+            "endDate": "2022-10-31T10:00:00"
+        }</p>
     </ul>
 
 </body>

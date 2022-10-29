@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.danieljoanol.pgsqlpopulator.model.DateType;
-import com.danieljoanol.pgsqlpopulator.model.enumarator.FieldType;
 import com.danieljoanol.pgsqlpopulator.util.DateUtils;
 
 import net.datafaker.Faker;
@@ -28,11 +27,11 @@ public class DateServiceImpl implements DateService {
                 .len(recordsNumber)
                 .generate();
 
-        if (date.getType().equals(FieldType.DATE)) {
+        if (date.getType().equals("DATE")) {
             return timeValues.stream().map(DateUtils::createDate).collect(Collectors.toList());
         }
 
-        if (date.getType().equals(FieldType.TIME)) {
+        if (date.getType().equals("TIME")) {
             return timeValues.stream().map(DateUtils::createTime).collect(Collectors.toList());
         }
 

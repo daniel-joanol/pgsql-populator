@@ -102,7 +102,7 @@ public class PopulatorServiceImpl implements PopulatorService {
                         mappedNames.put(enumt.getName(), enumt.getType());
                         break;
 
-                    case "CHAR", "BOOLEAN", "UUID", "SMALLINT", "INTEGER", "BIG_INT", "MONEY":
+                    case "CHAR", "BOOLEAN", "UUID", "SMALL_INT", "INTEGER", "BIG_INT", "MONEY":
                         GenericType generic = mapper.convertValue(field, GenericType.class);
                         values = genericService.generateValues(recordsNumber, generic);
                         mappedValues.put(generic.getName(), values);
@@ -122,7 +122,8 @@ public class PopulatorServiceImpl implements PopulatorService {
             } else {
                 throw new IllegalArgumentException("Type can't be null");
             }
-    
+        }
+
             query += String.join(", ", mappedNames.keySet()) + ")";
     
             for (int i = 0; i < recordsNumber; i++) {
@@ -145,7 +146,7 @@ public class PopulatorServiceImpl implements PopulatorService {
     
                 query = query.substring(0, query.length() -1) + " ),";
             }
-        }
+
 
         return query.substring(0, query.length() -1) + ";";
     }

@@ -19,25 +19,52 @@ I describe below the field types available and what parameters are expected for 
 
 * String name.
 
-### VARCHAR
+{
+    "name": "character",
+    "type": "CHAR"
+}
+
+### VARCHAR and TEXT
 
 * String name;
 * Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);
 * Integer length.
 
-### TEXT
+{
+    "length": 10,
+    "name": "name",
+    "type": "VARCHAR",
+    "varcharType": "FIRST_NAME"
+} 
 
-* String name;
-* Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);
-* Integer length.
+{
+    "name": "name",
+    "type": "VARCHAR",
+    "varcharType": "FIRST_NAME"
+}
 
 ### ENUM
 
 * String name;
 * String[] items.
 
+{
+    "items": [
+      "banana", "orange", "apple", "coconut", "pear"
+    ],
+    "name": "fruit",
+    "type": "ENUM"
+}
+
 ### DATE, TIME and TIMESTAMP
 
 * String name;
 * LocalDateTime startDate;
 * LocalDateTime endDate;
+
+{
+    "name": "date",
+    "type": "DATE",
+    "startDate": "2022-10-01T10:00:00",
+    "endDate": "2022-10-31T10:00:00"
+}

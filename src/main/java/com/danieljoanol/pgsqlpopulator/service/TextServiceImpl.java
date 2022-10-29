@@ -58,6 +58,7 @@ public class TextServiceImpl implements TextService {
     
                 if (strValue.length() > text.getLength()) {
                     strValue = strValue.substring(0, text.getLength());
+                    strValues.set(i, strValue);
                 }
             }
     
