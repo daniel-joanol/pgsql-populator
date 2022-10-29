@@ -11,7 +11,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 Each variable type has its own parameters.
 
-One of these parameters is the string fieldType, that will be used for all types. 
+One of these parameters is the string type, that will be used for all types. 
 
 I describe below the field types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries.
 
