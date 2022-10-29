@@ -9,7 +9,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 ## Types and parameters
 
-Each variable type has its own parameters.
+Each type has its own parameters.
 
 One of these parameters is the string type, that will be used for all types. 
 
