@@ -19,10 +19,12 @@ I describe below the field types available and what parameters are expected for 
 
 * String name.
 
+```
 {
     "name": "character",
     "type": "CHAR"
 }
+```
 
 ### VARCHAR and TEXT
 
@@ -30,6 +32,7 @@ I describe below the field types available and what parameters are expected for 
 * Enum fieldType (FIRST_NAME, LAST_NAME, FULL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);
 * Integer length.
 
+```
 {
     "length": 10,
     "name": "name",
@@ -42,12 +45,14 @@ I describe below the field types available and what parameters are expected for 
     "type": "VARCHAR",
     "varcharType": "FIRST_NAME"
 }
+```
 
 ### ENUM
 
 * String name;
 * String[] items.
 
+```
 {
     "items": [
       "banana", "orange", "apple", "coconut", "pear"
@@ -55,6 +60,7 @@ I describe below the field types available and what parameters are expected for 
     "name": "fruit",
     "type": "ENUM"
 }
+```
 
 ### DATE, TIME and TIMESTAMP
 
@@ -62,9 +68,11 @@ I describe below the field types available and what parameters are expected for 
 * LocalDateTime startDate;
 * LocalDateTime endDate;
 
+```
 {
     "name": "date",
     "type": "DATE",
     "startDate": "2022-10-01T10:00:00",
     "endDate": "2022-10-31T10:00:00"
 }
+```
