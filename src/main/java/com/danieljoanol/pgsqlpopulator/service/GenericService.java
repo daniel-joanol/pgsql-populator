@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.danieljoanol.pgsqlpopulator.model.GenericType;
 
-public interface ValuesService {
-
-    public List<String> generateValues(GenericType field, Integer recordsNumber);
+public interface GenericService {
+    
+    public List<String> generateValues(Integer recordsNumber, GenericType generic);
 
 }

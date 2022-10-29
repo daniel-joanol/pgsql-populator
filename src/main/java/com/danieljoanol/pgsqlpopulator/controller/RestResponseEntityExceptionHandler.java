@@ -20,6 +20,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
+        ex.printStackTrace();
+        
         String body = "The error is probably caused by an invalid option for ENUM or a badly formatted array";
         String[] uri = request.getDescription(false).split("uri=");
         ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST, body, uri[1]);
@@ -30,7 +32,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(value = { InvalidParameterException.class, IllegalArgumentException.class })
     protected ResponseEntity<Object> handleInvalidParameterException(RuntimeException ex, WebRequest request) {
 
+        ex.printStackTrace();
+
         String body = ex.getMessage();
+        if (ex.getMessage().contains("Unrecognized")) {
+            body = "Invalid fields. Check the documentation to see which fields should be used for each type";
+        }
+        
         String[] uri = request.getDescription(false).split("uri=");
         ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST, body, uri[1]);
 

@@ -2,36 +2,10 @@ package com.danieljoanol.pgsqlpopulator.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import com.danieljoanol.pgsqlpopulator.model.GenericType;
-
-import net.datafaker.Faker;
-
-public class Dates {
+public class DateUtils {
     
-    private Dates() {}
-
-    public static List<String> generateDates(Faker faker, String type, GenericType field, Integer recordsNumber) {
-        
-        List<Timestamp> timeValues = faker.collection(
-                    () -> faker.date().between(
-                            Timestamp.valueOf(field.getStartDate()), 
-                            Timestamp.valueOf(field.getEndDate())))
-                .len(recordsNumber)
-                .generate();
-
-        if (type.equals("DATE")) {
-            return timeValues.stream().map(Dates::createDate).collect(Collectors.toList());
-        }
-
-        if (type.equals("TIME")) {
-            return timeValues.stream().map(Dates::createTime).collect(Collectors.toList());
-        }
-
-        return timeValues.stream().map(Dates::createTimestamp).collect(Collectors.toList());
-    }
+    private DateUtils() {}
 
     public static String createDate(Timestamp ts) {
 

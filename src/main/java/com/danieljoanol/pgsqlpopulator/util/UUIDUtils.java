@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UUIDs {
+public class UUIDUtils {
     
-    private UUIDs() {}
+    private UUIDUtils() {}
 
     public static List<String> createUUIDs(Integer recordsNumber) {
         
