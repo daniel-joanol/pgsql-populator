@@ -5,9 +5,9 @@ import java.util.List;
 
 import net.datafaker.Faker;
 
-public class Booleans {
+public class BooleanUtils {
     
-    private Booleans() {}
+    private BooleanUtils() {}
 
     public static List<String> createBooleans(Faker faker, Integer recordsNumber) {
 

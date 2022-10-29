@@ -22,34 +22,53 @@
     </ul>
 
     <h3>Types and parameters</h3>
-    <p>Since the request body needs to have a single object, I decided to create a single class called GenericType with
-        every posible parameter that the fields need.</p>
-    <p>Some of these fields are the enum fieldType, that will be used for all types.</p>
-    <p>I describe below the field types available and what parameters from GenericType they actually use.</p>
+    <p>Each variable type has its own parameters.</p>
+    <p>One of these parameters is the string fieldType, that will be used for all types.</p>
+    <p>I describe below the field types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries.</p>
 
     <h3>CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID</h3>
     <ul>
         <li>String name.</li>
+
+        <p>{
+            "name": "character",
+            "type": "CHAR"
+        }</p>
     </ul>
 
-    <h3>VARCHAR</h3>
+    <h3>VARCHAR and TEXT</h3>
     <ul>
         <li>String name;</li>
         <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
         <li>Integer length.</li>
-    </ul>
 
-    <h3>TEXT</h3>
-    <ul>
-        <li>String name;</li>
-        <li>Enum fieldType (FIRST_NAME, LAST_NAME, FliL_NAME, ADDRESS, COMPANY, ID_NUMBER, PHONE_NUMBER);</li>
-        <li>Integer length.</li>
+        <p>{
+            "length": 10,
+            "name": "name",
+            "type": "VARCHAR",
+            "varcharType": "FIRST_NAME"
+        } 
+        
+        {
+            "name": "name",
+            "type": "VARCHAR",
+            "varcharType": "FIRST_NAME"
+        }</p>
     </ul>
 
     <h3>ENUM</h3>
     <ul>
         <li>String name;</li>
         <li>String[] items.</li>
+
+        <p>{
+            "items": [
+              "banana", "orange", "apple", "coconut", "pear"
+            ],
+            "name": "fruit",
+            "type": "ENUM"
+        }
+        </p>
     </ul>
 
     <h3>DATE, TIME and TIMESTAMP</h3>
@@ -57,6 +76,13 @@
         <li>String name;</li>
         <li>LocalDateTime startDate;</li>
         <li>LocalDateTime endDate;</li>
+
+        <p>{
+            "name": "date",
+            "type": "DATE",
+            "startDate": "2022-10-01T10:00:00",
+            "endDate": "2022-10-31T10:00:00"
+        }</p>
     </ul>
 
 </body>
