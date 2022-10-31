@@ -11,7 +11,7 @@ A simple PostgreSQL populator for practicing. As usual, suggestions, comments an
 
 Each type has its own parameters, including the parameter string type, that will be used for all types. 
 
-I describe below the types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries (/api/v1/populator/).
+I describe below the types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries (https://psqlpopulator.herokuapp.com/api/v1/populator/).
 
 ### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID
 
