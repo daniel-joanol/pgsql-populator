@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.datafaker.Faker;
 
-public class VarcharUtils {
+public class TextUtils {
 
-    private VarcharUtils() {}
+    private TextUtils() {}
 
     public static List<String> generateFirstNames(Faker faker, Integer recordsNumber) {
         

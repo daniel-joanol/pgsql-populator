@@ -1,0 +1,14 @@
+body {
+    margin:30px;
+    padding:0;
+}
+
+.petition {
+    margin: 0px;
+    top: 0px;
+    line-height: 5px;
+}
+
+.inside-petition {
+    text-indent:20px;
+}
