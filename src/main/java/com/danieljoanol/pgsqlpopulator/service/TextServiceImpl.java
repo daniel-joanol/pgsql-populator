@@ -7,7 +7,7 @@ import java.util.Locale;
 import org.springframework.stereotype.Service;
 
 import com.danieljoanol.pgsqlpopulator.model.TextType;
-import com.danieljoanol.pgsqlpopulator.util.VarcharUtils;
+import com.danieljoanol.pgsqlpopulator.util.TextUtils;
 
 import net.datafaker.Faker;
 
@@ -24,31 +24,31 @@ public class TextServiceImpl implements TextService {
         switch (text.getVarcharType()) {
 
             case "FIRST_NAME":
-                strValues = VarcharUtils.generateFirstNames(faker, recordsNumber);
+                strValues = TextUtils.generateFirstNames(faker, recordsNumber);
                 break;
 
             case "LAST_NAME":
-                strValues = VarcharUtils.generateLastNames(faker, recordsNumber);
+                strValues = TextUtils.generateLastNames(faker, recordsNumber);
                 break;
 
             case "FULL_NAME":
-                strValues = VarcharUtils.generateFullNames(faker, recordsNumber);
+                strValues = TextUtils.generateFullNames(faker, recordsNumber);
                 break;
 
             case "ADDRESS":
-                strValues = VarcharUtils.generateAddresses(faker, recordsNumber);
+                strValues = TextUtils.generateAddresses(faker, recordsNumber);
                 break;
 
             case "COMPANY":
-                strValues = VarcharUtils.generateCompanies(faker, recordsNumber);
+                strValues = TextUtils.generateCompanies(faker, recordsNumber);
                 break;
 
             case "ID_NUMBER":
-                strValues = VarcharUtils.generateIdNumbers(faker, recordsNumber);
+                strValues = TextUtils.generateIdNumbers(faker, recordsNumber);
                 break;
 
             case "PHONE_NUMBER":
-                strValues = VarcharUtils.generatePhoneNumbers(faker, recordsNumber);
+                strValues = TextUtils.generatePhoneNumbers(faker, recordsNumber);
                 break;
         }
         
