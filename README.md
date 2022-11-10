@@ -13,6 +13,8 @@ Each type has its own parameters, including the parameter string type, that will
 
 I describe below the types available and what parameters are expected for each one of them in the petitions, since this api has only one endpoint to create queries (POST - https://psqlpopulator.herokuapp.com/api/v1/populator/).
 
+Ps.: The endpoint also expects the parameters tableName and recordsNumber.
+
 ### CHAR, SMALL_INT, INTEGER, BIG_INT, MONEY, BOOLEAN, UUID
 
 * String name.

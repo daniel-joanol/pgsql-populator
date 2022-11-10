@@ -31,7 +31,7 @@ public class PopulatorController {
     private PopulatorService service;
 
     @Operation(summary = "Create", description = "Creates Query")
-    @ApiResponse(responseCode = "201", description = "Created", 
+    @ApiResponse(responseCode = "200", description = "Created", 
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
             schema = @Schema(implementation = String.class)))
     @ApiResponse(responseCode = "400", description = "Error message")
